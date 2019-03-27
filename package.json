@@ -11,19 +11,34 @@
     "react-dev": "webpack -d --watch",
     "node-start": "nodemon server/index.js",
     "db-seed": "knex seed:run",
-    "testSpecs": "node_modules/.bin/mocha testing"
+    "testSpecs": "node_modules/.bin/mocha testing",
+    "memory": "node --max-old-space-size=8192 Mysqldb/connection.js"
   },
   "dependencies": {
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
+    "csv": "^5.1.1",
+    "csv-to-mysql": "0.0.5",
+    "eslint": "^5.15.2",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "knex": "^0.16.3",
     "mocha": "^5.2.0",
+    "mongoose": "^5.4.19",
+    "mysql": "^2.16.0",
+    "mysql-promisify": "^1.0.1",
+    "mysql2": "^1.6.5",
     "pg": "^7.8.0",
+    "promise-fs": "^2.1.0",
+    "promise-mysql": "^3.3.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "sequelize": "^5.1.0",
+    "util": "^0.11.1",
+    "v8": "^0.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

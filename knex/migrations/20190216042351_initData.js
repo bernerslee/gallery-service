@@ -10,10 +10,10 @@ exports.up = function(knex, Promise) {
       table.string('img_url'); 
       table.integer('img_order');
       table.integer('house_id')
-            .unsigned()
-            .references('house_id')
-            .on('houses')
-            .onDelete('cascade');
+        .unsigned()
+        .references('house_id')
+        .on('houses')
+        .onDelete('cascade');
     })
   ]);
 };

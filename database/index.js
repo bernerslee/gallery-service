@@ -88,9 +88,9 @@ var checkHouseID = (id, cb) => {
   knex('houses').where({
     name: id
   })
-  .select('*')
+    .select('*')
     .then((rows) => {
-      if(rows.length <= 0) return cb(false);
+      if (rows.length <= 0) {return cb(false);}
       return cb(true);
     })
     .catch((error) => {
@@ -102,9 +102,9 @@ var checkHouseID = (id, cb) => {
 
 //returns array for photos belonging to a specific house_id
 var getImg = (house_id, cb) => {
-    //check if house id exists
-   checkHouseID(house_id, function(houseExists){
-     if(houseExists){
+  //check if house id exists
+  checkHouseID(house_id, function(houseExists) {
+    if (houseExists) {
       return knex('photos').where({
         house_id: house_id
       })
@@ -118,10 +118,10 @@ var getImg = (house_id, cb) => {
           console.log('ERROR: ', error);
           cb (error);
         });
-      } else {
-        return cb(true, null);
-      }
-    });
+    } else {
+      return cb(true, null);
+    }
+  });
 };
 
 var changeOrder = (pic, cb) => {
