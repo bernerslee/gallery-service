@@ -45,7 +45,7 @@ async function createPhotos(houseIdTracker, startingId2) {
     let string = '';
     let j = 0
     for (let i = startingId2 + 1; i <= startingId2 + 100000; i++) {
-        string += urlArray[j] + ',' + (j + 1) + ',' + (houseIdTracker + 1) + '\n';
+        string +=  urlArray[j] + ',' + (j + 1) + ',' + (houseIdTracker + 1) + '\n';
         j++;
         if (j > 9) {
             j = 0;
@@ -53,7 +53,6 @@ async function createPhotos(houseIdTracker, startingId2) {
         if (i % 10 === 0) {
             houseIdTracker++
         }
-        
     };
     let dir = 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/photo.csv';
     await fs.appendFile(dir, string)
@@ -61,7 +60,7 @@ async function createPhotos(houseIdTracker, startingId2) {
 
 async function createHouses(startingId) {
     let string = '';
-    for (let i = startingId + 1; i <= startingId + 10000; i++) {
+    for (let i = startingId + 1; i <= startingId + 100000; i++) {
         string += i + '\n'
     }
     var dir = 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/house.csv'
@@ -72,8 +71,8 @@ async function test() {
     var connection = await mysql.createConnection(config)
     let startingId = 0;
     let totalTime = 0;
-    
-    // for (let i = 0; i < 20; i++) {
+    let batch = 0
+    // for (let i = 0; i < 100; i++) {
     //     let timeBefore = Date.now()
     //     await createHouses(startingId)
     //     await insertHouses(connection)
@@ -81,14 +80,16 @@ async function test() {
     //     let timeAfter = Date.now()
     //     let timeOfInclusion = (timeAfter - timeBefore) / 1000;
     //     console.log(timeOfInclusion);
-    //     // totalTime += timeOfInclusion;
-    //     // console.log(totalTime);
+    //     totalTime += timeOfInclusion;
+    //     console.log(totalTime);
+    //     batch += 100000;
+    //     console.log(batch);
     // }
 
     let startingId2 = 0;
     let houseIdTracker = 0;
     let totalBatch = 0;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 100000; i++) {
         let timeBefore = Date.now()
         await createPhotos(houseIdTracker, startingId2)
         await insertPhotos(connection)
@@ -101,6 +102,7 @@ async function test() {
         console.log(totalTime);
         totalBatch += 100000;
         console.log(totalBatch);
+
     }     
     
 

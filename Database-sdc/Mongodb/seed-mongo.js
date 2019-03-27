@@ -1,22 +1,4 @@
-const mongoose = require('mongoose');
-
-
-async function startConnection() {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1/zillow', { useNewUrlParser: true })
-    console.log('connected')
-  }
-  catch(err){
-    console.log(err)
-  }
-}
-
-let houseSchema = new mongoose.Schema({
-  houseid: Number,
-  photos:[String]
-});
-
-let House = mongoose.model('house', houseSchema);
+const {db, House} = require('./index.js')
 
 
 let createInputArray = (idTracker) => {
@@ -46,10 +28,11 @@ let createInputArray = (idTracker) => {
   return container;
 }
 
+
 async function insertHouses() {
   let totalTime = 0
   let totalBatch = 0;
-  await startConnection()
+  // await startConnection()
   var idTracker = 0;
   for (let i = 0; i < 500; i++) {
     let timeBefore = Date.now();
