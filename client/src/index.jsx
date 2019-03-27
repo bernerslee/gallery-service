@@ -162,24 +162,27 @@ class Zillow extends React.Component {
   }
 
   componentDidMount() {
+ 
     var state = this;
     var path = window.location.pathname.split('/');
+    console.log(path);
     var house = path[1];
-    $.ajax({
-      method: 'GET',
-      url: `http://localhost:3002/gallery/${house}`,
-      success: function(data) {
-        var result = {
-          main: data[0],
-          group: data.slice(1, 5)
-        };
-        state.setState({
-          houseId: house, 
-          gallery: data, 
-          display: result
-        });
-      } 
-    });
+    console.log(house);
+    // $.ajax({
+    //   method: 'GET',
+    //   url: `http://localhost:3002/gallery/${house}`,
+    //   success: function(data) {
+    //     var result = {
+    //       main: data[0],
+    //       group: data.slice(1, 5)
+    //     };
+    //     state.setState({
+    //       houseId: house, 
+    //       gallery: data, 
+    //       display: result
+    //     });
+    //   } 
+    // });
   }
 
   render() {

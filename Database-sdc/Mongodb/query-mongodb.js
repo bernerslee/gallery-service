@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const {db, House} = require('./index.js');
 
 
-let findHouse = () => {
-  House.findOne({houseid: 6}, (err, res) => {
-    if (err) {
-      console.log('there was error', err);
-    } else {
-      console.log('res is here', res);
-      return res;
-    }
+let findHouse = (id) => {
+  return new Promise((resolve, reject) => {
+    House.findOne({houseid: id}, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+        
+      }
+    });
   });
 };
 
-findHouse();
+module.exports = findHouse;
