@@ -3,22 +3,21 @@ CREATE DATABASE IF NOT EXISTS ZILLOW;
 USE ZILLOW;
 
 DROP TABLE IF EXISTS photos; 
-DROP TABLE IF EXISTS houses;
-
 
 /* we want to create tables: homes, photos */
 
-CREATE TABLE IF NOT EXISTS houses (
-    ID int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (ID)
-);
-
-
 CREATE TABLE IF NOT EXISTS photos (
     ID int NOT NULL AUTO_INCREMENT,
-    img_url varchar(150),
-    img_order INTEGER,
-    house_id INTEGER, 
-    PRIMARY KEY (ID),
-    FOREIGN KEY (house_id) REFERENCES houses(ID)
+    house_id INTEGER,
+    img_0 varchar(150),
+    img_1 varchar(150),
+    img_2 varchar(150),
+    img_3 varchar(150),
+    img_4 varchar(150),
+    img_5 varchar(150),
+    img_6 varchar(150),
+    img_7 varchar(150),
+    img_8 varchar(150),
+    img_9 varchar(150),
+    PRIMARY KEY (ID)
 );

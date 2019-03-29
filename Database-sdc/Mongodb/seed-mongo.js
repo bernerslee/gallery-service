@@ -47,6 +47,8 @@ async function insertHouses() {
     console.log('total batch is ', totalBatch);
     console.log('totalTime is ', totalTime);
   }
+  console.log('total number or records is ', totalBatch);
+  console.log('total seeding time is ' + totalTime/60 + ' minutes' )
 }
 
 insertHouses();
