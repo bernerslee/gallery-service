@@ -9,7 +9,7 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "node-start": "nodemon server/index.js",
+    "node-start": "nodemon server/sdcIndex.js",
     "db-seed": "knex seed:run",
     "testSpecs": "node_modules/.bin/mocha testing",
     "test": "mocha"
