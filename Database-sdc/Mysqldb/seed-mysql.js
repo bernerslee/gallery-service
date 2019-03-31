@@ -1,19 +1,7 @@
 let fs = require('promise-fs');
 let mysql = require('promise-mysql');
 let config = require('./config.js');
-
-var urlArray = [
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed2.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed3.jpeg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg',
-    'https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg'
-];
+var urlsArray = require('./urlsArray.js');
 
 
 async function insertPhotos(connection) {
@@ -26,7 +14,7 @@ async function insertPhotos(connection) {
 async function createPhotos(houseIdTracker, startingId) {
     let string = '';
     for (let i = startingId + 1; i <= startingId + 50000; i++) {
-        string += houseIdTracker + 1 + ',' + (houseIdTracker + 1) + ',' + urlArray[0] + ',' + urlArray[1] + ',' + urlArray[2] + ',' + urlArray[3] + ',' + urlArray[4] + ',' + urlArray[5] + ',' + urlArray[6] + ',' + urlArray[7] + ',' + urlArray[8] + ',' + urlArray[9] + '\n';
+        string += houseIdTracker + 1 + ',' + (houseIdTracker + 1) + ',' + urlsArray[0] + ',' + urlsArray[1] + ',' + urlsArray[2] + ',' + urlsArray[3] + ',' + urlsArray[4] + ',' + urlsArray[5] + ',' + urlsArray[6] + ',' + urlsArray[7] + ',' + urlsArray[8] + ',' + urlsArray[9] + '\n';
         houseIdTracker++
     };
     let dir = 'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/photo.csv';

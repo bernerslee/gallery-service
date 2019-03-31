@@ -166,11 +166,12 @@ class Zillow extends React.Component {
     var state = this;
     // var path = window.location.pathname.split('/');
     // var house = path[1];
-    var house = 7
+    var house = 28;
     $.ajax({
       method: 'GET',
       url: `http://localhost:3002/gallery/${house}`,
       success: function(data) {
+        console.log(data);
         var result = {
           main: data[0],
           group: data.slice(1, 5)
