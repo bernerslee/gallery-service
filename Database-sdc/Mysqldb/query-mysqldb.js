@@ -41,7 +41,7 @@ function getPhotos(id) {
 
 // eslint-disable-next-line func-style
 
-//FUNCTION BELO WAS USED TO TEST THE SPEED OF QUERIES USING MYSQL DB
+//FUNCTION BELOW WAS USED TO TEST THE SPEED OF QUERIES USING MYSQL DB
 
 
 // function getPhotos2(id) {
