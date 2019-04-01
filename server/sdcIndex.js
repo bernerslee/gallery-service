@@ -60,7 +60,21 @@ app.post('/gallery', (req, res) => {
       });
     }
   });
+});
 
+app.delete('/gallery/:id', (req, res) => {
+  let id = Number(req.params.id);
+  console.log(typeof id );
+  let q = 'DELETE FROM photos WHERE id = ?';
+  let params = [id];
+  console.log(params);
+  db.query(q, params, (err, res) => {
+    if (err) {
+      console.log('there was an error deleting record', err);
+    } else {
+      console.log('record deleted');
+    }    
+  }); 
 });
   
 app.listen(port, (req, res)=>{
