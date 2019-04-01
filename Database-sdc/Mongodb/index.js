@@ -3,7 +3,6 @@ var explain = require('mongoose-explain');
 
 mongoose.connect('mongodb://127.0.0.1/zillow', { useNewUrlParser: true });
 
-
 const db = mongoose.connection;
 
 let houseSchema = new mongoose.Schema({
@@ -13,9 +12,7 @@ let houseSchema = new mongoose.Schema({
   
 houseSchema.plugin(explain);
 
-
 let House = mongoose.model('House', houseSchema);
-  
 
 module.exports = {
   db,
