@@ -26,22 +26,22 @@ let findHouse = (id) => {
 
 //FUNCTION BELOW WAS USED TO TEST THE SPEED OF QUERIES USING MONGO DB
 
-// let findHouse2 = (id) => {
-//   let timeBefore = Date.now();
-//   House.findOne({houseid: id})
-//     .then((res) => {
-//       let data = organizeDataForServer(res);
-//       let timeAfter = Date.now();
-//       var totalTime = (timeAfter - timeBefore);
-//       console.log('query took ' + totalTime );
-//       console.log(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });  
-// };
+let findHouse2 = (id) => {
+  let timeBefore = Date.now();
+  House.findOne({houseid: id})
+    .then((res) => {
+      let data = organizeDataForServer(res);
+      let timeAfter = Date.now();
+      var totalTime = (timeAfter - timeBefore);
+      console.log('query took ' + totalTime + ' miliseconds');
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });  
+};
 
-// findHouse2(9000000);
+findHouse2(9000000);
 
 
 module.exports = findHouse;

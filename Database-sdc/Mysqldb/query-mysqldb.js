@@ -103,30 +103,26 @@ let updatePhotos = (req, id) => {
 //FUNCTION BELOW WAS USED TO TEST THE SPEED OF QUERIES USING MYSQL DB
 
 
+// eslint-disable-next-line func-style
 // function getPhotos2(id) {
-//   mysql.createConnection(config)
-//     .then((connection) => {
-//       let q = 'SELECT * FROM photos where id = ?';
-//       var params = [id];
-//       let timeBefore = Date.now();
-//       connection.query(q, params)
-//         .then((res) => {
-//           let timeAfter = Date.now();
-//           var result = (timeAfter - timeBefore);
-//           console.log('Query took ' + result );
-//           let data = organizeDataForServer(res);
-//           console.log('data');
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//         });
-//     })
-//     .catch((err) => {
-//       console.log('there was an error ', err);
-//     });
+  
+//   let q = 'SELECT * FROM photos where id = ?';
+//   var params = [id];
+//   let timeBefore = Date.now();
+//   db.query(q, params, (err, res) => {
+//     if (err) {
+//       console.log('there was an error', err);
+//     }
+//     let timeAfter = Date.now();
+//     var result = (timeAfter - timeBefore);
+//     console.log('Query took ' + result + ' miliseconds');
+//     let data = organizeDataForServer(res);
+//     console.log(data);
+//   });
+      
 // }
 
-// getPhotos2(9000000);
+// getPhotos2(9999999);
 
 module.exports = {
   getPhotos,

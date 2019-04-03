@@ -16,10 +16,8 @@ app.get('/gallery/:id', (req, res) => {
   db.getPhotos(id)
     .then((data) => {
       if (!data.length) {
-        console.log('I am in the if block==============================');
         res.status(404).send('unable to get data');
       }
-      console.log(data);
       res.status(200).send(data);
     });
   // .catch((err) => {
