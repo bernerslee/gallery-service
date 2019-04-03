@@ -20,4 +20,10 @@ CREATE TABLE IF NOT EXISTS photos (
     img_8 varchar(150),
     img_9 varchar(150),
     PRIMARY KEY (ID)
+    
 );
+
+-- ALTER TABLE photos ADD INDEX (house_id);
+
+CREATE INDEX houseid ON photos(house_id);
+

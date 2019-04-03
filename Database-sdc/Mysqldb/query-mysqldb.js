@@ -21,7 +21,7 @@ let organizeDataForServer = (data) => {
 // eslint-disable-next-line func-style
 function getPhotos(id) {
   return new Promise ((resolve, reject) => {
-    let q = 'SELECT * FROM photos where id = ?';
+    let q = 'SELECT * FROM photos where house_id = ?';
     var params = [id];
     let timeBefore = Date.now();
     db.query(q, params, (err, res) => {
@@ -31,8 +31,11 @@ function getPhotos(id) {
       let timeAfter = Date.now();
       var result = (timeAfter - timeBefore) / 1000;
       console.log('Query took ' + result + 'seconds');
-      let data = organizeDataForServer(res);
-      resolve(data);
+      console.log('this is result withing db getPhotos', res);
+      if (res.length) {
+        res = organizeDataForServer(res);
+      }
+      resolve(res);
     });  
   });
 }
@@ -40,7 +43,7 @@ function getPhotos(id) {
 let insertPhotos = (req) => {
   return new Promise((resolve, reject) => {
     let photos = Object.values(req.body);
-    let firstQuery = 'SELECT * FROM photos ORDER BY id DESC LIMIT 1';
+    let firstQuery = 'SELECT * FROM photos ORDER BY house_id DESC LIMIT 1';
     db.query(firstQuery, (err, res) => {
       if (err) {
         console.log('there was an error getting the last record from DB');
@@ -67,7 +70,7 @@ let insertPhotos = (req) => {
 
 let deletePhotos = (id) => {
   return new Promise((resolve, reject) => {
-    let q = 'DELETE FROM photos WHERE id = ?';
+    let q = 'DELETE FROM photos WHERE house_id = ?';
     let params = [id];
     db.query(q, params, (err, res) => {
       if (err) {
@@ -83,7 +86,7 @@ let updatePhotos = (req, id) => {
   return new Promise((resolve, reject) => {
     let params = Object.values(req.body);
     params.push(id);
-    let q = 'UPDATE photos SET img_0 = ?,  img_1 = ?, img_2 = ?, img_3 = ?, img_4 = ?, img_5 = ?, img_6 = ?, img_7 = ?, img_8 = ?, img_9 = ? WHERE ID = ?';
+    let q = 'UPDATE photos SET img_0 = ?,  img_1 = ?, img_2 = ?, img_3 = ?, img_4 = ?, img_5 = ?, img_6 = ?, img_7 = ?, img_8 = ?, img_9 = ? WHERE house_id = ?';
     db.query(q, params, (err, res) => {
       if (err) {
         reject(err);

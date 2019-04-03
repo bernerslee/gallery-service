@@ -17,6 +17,7 @@
   "dependencies": {
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
+    "chai-http": "^4.2.1",
     "cors": "^2.8.5",
     "csv": "^5.1.1",
     "csv-to-mysql": "0.0.5",

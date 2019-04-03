@@ -1,6 +1,6 @@
 let fs = require('promise-fs');
 let mysql = require('promise-mysql');
-let config = require('./config.js');
+let config = require('./config.js').config;
 var urlsArray = require('./urlsArray.js');
 
 

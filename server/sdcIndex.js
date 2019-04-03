@@ -15,18 +15,22 @@ app.get('/gallery/:id', (req, res) => {
   var id = Number(req.params.id);
   db.getPhotos(id)
     .then((data) => {
+      if (!data.length) {
+        console.log('I am in the if block==============================');
+        res.status(404).send('unable to get data');
+      }
       console.log(data);
       res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(400).send('unable to retrieve from database', err);
     });
+  // .catch((err) => {
+  //   res.status(404).send('unable to retrieve from database');
+  // });
 });
 
 app.post('/gallery', (req, res) => {
   db.insertPhotos(req)
-    .then(() => {
-      res.json('Photos added successfully');
+    .then((res) => {
+      res.json('unable to do it');
     })
     .catch((err) => {
       res.status(400).send('unable to save to database', err);
@@ -58,4 +62,9 @@ app.put('/gallery/:id', (req, res) => {
 app.listen(port, (req, res)=>{
   console.log(`Listening on Port: ${port}`);
 });
-  
+
+
+
+module.exports = {
+  app
+};

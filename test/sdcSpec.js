@@ -1,95 +1,122 @@
-/* Make sure node server is running */
-let mysql = require('mysql');
+let db = require('../Database-sdc/Mysqldb/config').db;
+let request = require('request-promise');
 var expect = require('chai').expect;
-var config = require('../Database-sdc/Mysqldb/config.js');
-var urlsArray = require('../Database-sdc/Mysqldb/urlsArray.js');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+let app = require('../server/sdcIndex.js');
 
-let connection = mysql.createConnection(config);
+chai.use(chaiHttp);
 
-connection.connect((err) => {
-  if (err) {
-    console.log('there was an error connecting to mysqldb');
-  } else {
-    console.log('connected');
-  }
-});
+describe('GET/gallery/some_id', function () {
 
-describe('database', () => {
-
-  it('Should retrieve data from Mysql db in under 50 miliseconds', (done) => {
-    let q = 'SELECT * FROM photos WHERE ID = ?';
-    let params = [9999999];
-    let timeBeforeQuery = Date.now();
-    connection.query(q, params, (err, res) => {
-      if (err) {
-        console.log('There was an error retrieving from Database', err);
-      } else {
-        let timeAfterQuery = Date.now();
-        let timeTakenByQuery = timeAfterQuery - timeBeforeQuery;
-        expect(timeTakenByQuery).to.be.at.most(50);
+  it('should respond with json containing 10 elements', (done) => {
+    request('http://localhost:3002/gallery/400')
+      .then((res) => {
+        let responseFromServer = JSON.parse(res);
+        expect(responseFromServer.length).to.equal(10);  
+        expect(responseFromServer[0]).to.be.an('object'); 
         done();
-      }
-    });
+      })
+      .catch((err) => {
+        console.log('there is an error test_urling the GET request', err);
+      });
   });
 
-  // it('Should have 10.000.000 records on the photos table', function () {
-  //   this.timeout(40000);
-  //   let q = 'SELECT COUNT(*) FROM photos';
-  //   connection.query(q, (err, res) => {
-  //     if (err) {
-  //       console.log('There was an error counting the number of records in the database', err);
-  //     } else {
-  //       console.log('whaaaaaaaaaaaaaaaaaaaaaaaaaat');
-  //       let count = res[0]['COUNT(*)'];
-  //       expect(count).to.be(10000000);
-  //       done();
-  //     }
-  //   });      
-  // });
-
-  
+  it('should respond with objects that have 2 properties: img_url and img_order', (done) => {
+    request('http://localhost:3002/gallery/400')
+      .then((res) => {
+        let responseFromServer = JSON.parse(res);
+        let properties = Object.keys(responseFromServer[0]);
+        expect(properties[0]).to.equal('img_url');
+        expect(properties[1]).to.equal('img_order');
+        done();
+      })
+      .catch((err) => {
+        console.log('there is an error test_urling the GET request', err);
+      });
+  });
 });
-   
-//   dbConnect.query('SELECT * FROM houses')
-//     .then((result)=>{
-//       expect(result.rowCount).to.equal(100);
-//       done();
+
+// it('should respond with a 200000000 if input ID does not exist on database', (done) => {
+//   chai.request('http://localhost:3002')
+//     .get('/gallery/20000000')
+//     .end(function(err, res) {
+//       console.log('res is here', res);
+//       expect(res).to.have.status(400);
+//       done(); // <= Call done to signal callback end
 //     });
 // });
 
-//   it('Should have 600 records in photos table', (done) => {
-//     dbConnect.query('SELECT * FROM photos')
-//       .then((result)=>{
-//         expect(result.rowCount).to.equal(600);
-//         done();
-//       });
-//   });
+describe('POST/gallery/', () => {
+    
+  it('should post correctly', (done) => {
 
-//   it('Should have the correct record types/columns in Houses table', (done) => {
-//     dbConnect.query('SELECT * FROM houses limit 1')
-//       .then((result)=>{
-//         expect(result.rows[0]).to.have.all.keys('house_id', 'name');
-//         expect(result.rows[0].house_id).to.be.a('number');
-//         expect(result.rows[0].name).to.be.a('string');
-//         done();
-//       });
-        
-//   });
+    let recordToBeInserted = {
+      'img_0': 'test_url',
+      'img_1': 'test_url',
+      'img_2': 'test_url',
+      'img_3': 'test_url',
+      'img_4': 'test_url',
+      'img_5': 'test_url',
+      'img_6': 'test_url',
+      'img_7': 'test_url',
+      'img_8': 'test_url',
+      'img_9': 'test_url'
+    };
 
-//   it('Should have the correct record types/columns in photos table', (done) => {
-//     dbConnect.query('SELECT * FROM photos limit 1')
-//       .then((result)=>{
-//         expect(result.rows[0]).to.have.all.keys('photo_id', 'img_url', 'img_order', 'house_id');
-//         expect(result.rows[0].photo_id).to.be.a('number');
-//         expect(result.rows[0].img_url).to.be.a('string');
-//         expect(result.rows[0].img_order).to.be.a('number'); //maybe string is better??
-//         expect(result.rows[0].house_id).to.be.a('number');
-//         done();
-//       });
-//   });
+    var options = {
+      method: 'POST',
+      uri: 'http://localhost:3002/gallery/',
+      body: recordToBeInserted,
+      json: true // Automatically stringifies the body to JSON
+    };
+  
+    request(options)
+      .then((res) => {
+        console.log('this is here===================');
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+            
+  });
+    
 
-//   afterEach(function() {
-//     dbConnect.end();
-//   }); 
 
-// });
+  // it('should respond with redirect on post', function(done) {
+  //   request(app)
+  //     .post('/api/members')
+  //     .send({"participant":{"nuid":"98ASDF988SDF89SDF89989SDF9898"}})
+  //     .expect(200)
+  //     .expect('Content-Type', /json/)
+  //     .end(function(err, res) {
+  //       if (err) done(err);
+  //       res.body.should.have.property('participant');
+  //       res.body.participant.should.have.property('nuid', '98ASDF988SDF89SDF89989SDF9898');
+
+  //        });
+  //     done();
+  // });
+
+  // it('respond with json containing a list of all users', function (done) {
+  //   request(app)
+  //     .get('/users')
+  //     .set('Accept', 'application/json')
+  //     .expect('Content-Type', /json/)
+  //     .expect(200, done);
+  // });
+
+  // it('should properly decorate the fullName', async () => {
+  //   nock('http://localhost/3002')
+  //     .get('/api/users/123')
+  //     .reply(200, { firstName: 'John', lastName: 'Doe' });
+    
+  //   const user = await getUser(123);
+  //   expect(user).toEqual({
+  //     firstName: 'John',
+  //     lastName: 'Doe',
+  //     fullName: 'John Doe'
+  //   });
+  // });
+
+
+});
