@@ -1,9 +1,9 @@
-let db = require('../Database-sdc/Mysqldb/config').db;
+// let db = require('../Database-sdc/Mysqldb/config').db;
 let request = require('request-promise');
 var expect = require('chai').expect;
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-let app = require('../server/sdcIndex.js');
+// let app = require('../server/sdcIndex.js');
 
 chai.use(chaiHttp);
 
@@ -35,22 +35,23 @@ describe('GET/gallery/some_id', function () {
         console.log('there is an error test_urling the GET request', err);
       });
   });
+
+  it('should respond with a 404 if input ID does not exist on database', (done) => {
+    chai.request('http://localhost:3002')
+      .get('/gallery/20000000')
+      .end(function(err, res) {
+        expect(res).to.have.status(404);
+        done(); // <= Call done to signal callback end
+      });
+  });
+
 });
 
-// it('should respond with a 200000000 if input ID does not exist on database', (done) => {
-//   chai.request('http://localhost:3002')
-//     .get('/gallery/20000000')
-//     .end(function(err, res) {
-//       console.log('res is here', res);
-//       expect(res).to.have.status(400);
-//       done(); // <= Call done to signal callback end
-//     });
-// });
+
 
 describe('POST/gallery/', () => {
     
   it('should post correctly', (done) => {
-
     let recordToBeInserted = {
       'img_0': 'test_url',
       'img_1': 'test_url',
@@ -70,7 +71,6 @@ describe('POST/gallery/', () => {
       body: recordToBeInserted,
       json: true // Automatically stringifies the body to JSON
     };
-  
     request(options)
       .then((res) => {
         console.log('this is here===================');
@@ -79,44 +79,44 @@ describe('POST/gallery/', () => {
       });
             
   });
+}); 
+
+
+// it('should respond with redirect on post', function(done) {
+//   request(app)
+//     .post('/api/members')
+//     .send({"participant":{"nuid":"98ASDF988SDF89SDF89989SDF9898"}})
+//     .expect(200)
+//     .expect('Content-Type', /json/)
+//     .end(function(err, res) {
+//       if (err) done(err);
+//       res.body.should.have.property('participant');
+//       res.body.participant.should.have.property('nuid', '98ASDF988SDF89SDF89989SDF9898');
+
+//        });
+//     done();
+// });
+
+// it('respond with json containing a list of all users', function (done) {
+//   request(app)
+//     .get('/users')
+//     .set('Accept', 'application/json')
+//     .expect('Content-Type', /json/)
+//     .expect(200, done);
+// });
+
+// it('should properly decorate the fullName', async () => {
+//   nock('http://localhost/3002')
+//     .get('/api/users/123')
+//     .reply(200, { firstName: 'John', lastName: 'Doe' });
     
+//   const user = await getUser(123);
+//   expect(user).toEqual({
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     fullName: 'John Doe'
+//   });
+// });
 
 
-  // it('should respond with redirect on post', function(done) {
-  //   request(app)
-  //     .post('/api/members')
-  //     .send({"participant":{"nuid":"98ASDF988SDF89SDF89989SDF9898"}})
-  //     .expect(200)
-  //     .expect('Content-Type', /json/)
-  //     .end(function(err, res) {
-  //       if (err) done(err);
-  //       res.body.should.have.property('participant');
-  //       res.body.participant.should.have.property('nuid', '98ASDF988SDF89SDF89989SDF9898');
-
-  //        });
-  //     done();
-  // });
-
-  // it('respond with json containing a list of all users', function (done) {
-  //   request(app)
-  //     .get('/users')
-  //     .set('Accept', 'application/json')
-  //     .expect('Content-Type', /json/)
-  //     .expect(200, done);
-  // });
-
-  // it('should properly decorate the fullName', async () => {
-  //   nock('http://localhost/3002')
-  //     .get('/api/users/123')
-  //     .reply(200, { firstName: 'John', lastName: 'Doe' });
-    
-  //   const user = await getUser(123);
-  //   expect(user).toEqual({
-  //     firstName: 'John',
-  //     lastName: 'Doe',
-  //     fullName: 'John Doe'
-  //   });
-  // });
-
-
-});
+// });

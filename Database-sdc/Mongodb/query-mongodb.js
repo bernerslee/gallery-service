@@ -28,20 +28,21 @@ let findHouse = (id) => {
 
 let findHouse2 = (id) => {
   let timeBefore = Date.now();
-  House.findOne({houseid: id})
-    .then((res) => {
-      let data = organizeDataForServer(res);
-      let timeAfter = Date.now();
-      var totalTime = (timeAfter - timeBefore);
-      console.log('query took ' + totalTime + ' miliseconds');
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });  
+  House.find({houseid: id}).explain().then(data=>console.log(data));
+  // House.findOne({houseid: id})
+  //   .then((res) => {
+  //     let data = organizeDataForServer(res);
+  //     let timeAfter = Date.now();
+  //     var totalTime = (timeAfter - timeBefore);
+  //     console.log('query took ' + totalTime + ' miliseconds');
+  //     console.log(data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });  
 };
 
-findHouse2(9000000);
+findHouse2(9999999);
 
 
 module.exports = findHouse;

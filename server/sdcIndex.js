@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var findHouse = require('../Database-sdc/Mongodb/query-mongodb.js'); //pulling from mongo database
+// var findHouse = require('../Database-sdc/Mongodb/query-mongodb.js'); //pulling from mongo database
 var cors = require('cors');    
 var port = 3002;
 var db = require('../Database-sdc/Mysqldb/query-mysqldb');
@@ -17,18 +17,19 @@ app.get('/gallery/:id', (req, res) => {
     .then((data) => {
       if (!data.length) {
         res.status(404).send('unable to get data');
+      } else {
+        res.status(200).send(data);
       }
-      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(404).send('unable to retrieve from database', err);
     });
-  // .catch((err) => {
-  //   res.status(404).send('unable to retrieve from database');
-  // });
 });
 
 app.post('/gallery', (req, res) => {
   db.insertPhotos(req)
     .then((res) => {
-      res.json('unable to do it');
+      res.json('Inserted into database');
     })
     .catch((err) => {
       res.status(400).send('unable to save to database', err);

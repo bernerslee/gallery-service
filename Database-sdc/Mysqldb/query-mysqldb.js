@@ -23,15 +23,11 @@ function getPhotos(id) {
   return new Promise ((resolve, reject) => {
     let q = 'SELECT * FROM photos where house_id = ?';
     var params = [id];
-    let timeBefore = Date.now();
     db.query(q, params, (err, res) => {
       if (err) {
         reject(err);
       }
       let timeAfter = Date.now();
-      var result = (timeAfter - timeBefore) / 1000;
-      console.log('Query took ' + result + 'seconds');
-      console.log('this is result withing db getPhotos', res);
       if (res.length) {
         res = organizeDataForServer(res);
       }
