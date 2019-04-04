@@ -27,12 +27,13 @@ app.get('/gallery/:id', (req, res) => {
 });
 
 app.post('/gallery', (req, res) => {
+  
   db.insertPhotos(req)
-    .then((res) => {
-      res.json('Inserted into database');
+    .then((result) => {
+      res.sendStatus(200);
     })
     .catch((err) => {
-      res.status(400).send('unable to save to database', err);
+      res.status(400).send(err);
     });
 });
 
@@ -64,6 +65,4 @@ app.listen(port, (req, res)=>{
 
 
 
-module.exports = {
-  app
-};
+module.exports = app;

@@ -44,7 +44,6 @@ let insertPhotos = (req) => {
       if (err) {
         console.log('there was an error getting the last record from DB');
       } else {
-        console.log('this is res', res[0]);
         let lastId = res[0].ID;
         let nextId = lastId + 1;
         // eslint-disable-next-line quotes
