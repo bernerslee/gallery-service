@@ -22,7 +22,7 @@ app.get('/gallery/:id', (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(404).send('unable to retrieve from database', err);
+      res.status(404).send('unable to retrieve from database');
     });
 });
 
@@ -33,7 +33,7 @@ app.post('/gallery', (req, res) => {
       res.sendStatus(200);
     })
     .catch((err) => {
-      res.status(400).send(err);
+      res.status(400).send('Unable to post to server!');
     });
 });
 
@@ -44,7 +44,7 @@ app.delete('/gallery/:id', (req, res) => {
       res.json('Record deleted successfully');
     })
     .catch((err) => {
-      res.status(400).send('unable to save to database', err);
+      res.status(400).send('unable to delete data');
     });
 });
 
@@ -55,7 +55,7 @@ app.put('/gallery/:id', (req, res) => {
       res.json('Record updated successfully');
     })
     .catch((err) => {
-      res.status(400).send('unable to save to database', err);
+      res.status(400).send('unable to update data', err);
     });
 }); 
   
