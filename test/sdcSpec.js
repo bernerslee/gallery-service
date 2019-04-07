@@ -40,6 +40,18 @@ describe('GET/gallery/some_id', function () {
       .get('/gallery/20000000')
       .expect(404, done);
   });
+
+  it('should not take longer than 50 ms to respond', (done) => {
+    let timeBefore = Date.now();
+    newRequest(app)
+      .get('/gallery/20000000')
+      .end(() => {
+        let timeAfter = Date.now();
+        let totalTime = timeAfter - timeBefore;
+        expect(totalTime).to.be.at.most(50);
+        done();
+      });
+  });
 });
 
 
@@ -61,6 +73,7 @@ describe('POST/gallery/', () => {
       'img_9': 'test_put'
     };
 
+    
     let options = {
       method: 'POST',
       uri: 'http://localhost:3002/gallery',
