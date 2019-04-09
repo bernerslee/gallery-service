@@ -32,7 +32,6 @@ let createInputArray = (idTracker) => {
 async function insertHouses() {
   let totalTime = 0
   let totalBatch = 0;
-  // await startConnection()
   var idTracker = 0;
   for (let i = 0; i < 500; i++) {
     let timeBefore = Date.now();
