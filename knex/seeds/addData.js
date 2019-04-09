@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable camelcase */
 /* file created by running: knex seed:make addData --env development */
 exports.seed = function(knex, Promise) {
   var houseList = [];
@@ -10,11 +12,11 @@ exports.seed = function(knex, Promise) {
   }
   
   return Promise.all([
-        knex('photos').del(),
-        knex('houses').del(),
-        knex('houses').insert(houseList),
-        knex('photos').insert(photoList)
-      ]);
+    knex('photos').del(),
+    knex('houses').del(),
+    knex('houses').insert(houseList),
+    knex('photos').insert(photoList)
+  ]);
 };
 
 var getPhotos = (id) => {
