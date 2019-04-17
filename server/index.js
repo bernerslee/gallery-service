@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+
 // app.get for Mongo
 app.get('/gallerymongodb/:id', (req, res) => {
   var id = Number(req.params.id);

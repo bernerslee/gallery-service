@@ -1,0 +1,20 @@
+config:
+  target: 'http://localhost:3002'
+  phases:
+    - duration: 60
+      arrivalRate: 100
+scenarios:
+  - flow:
+    - post:
+          url: "/gallery"
+          json:
+            img_0: "test_pic"
+            img_1: "test_pic"
+            img_2: "test_pic"
+            img_3: "test_pic"
+            img_4: "test_pic"
+            img_5: "test_pic"
+            img_6: "test_pic"
+            img_7: "test_pic"
+            img_8: "test_pic"
+            img_9: "test_pic"
