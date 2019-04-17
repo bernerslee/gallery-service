@@ -1,6 +1,9 @@
+require('newrelic');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var morgan = require('morgan');
+
 // var findHouse = require('../Database-sdc/Mongodb/query-mongodb.js'); //pulling from mongo database
 var cors = require('cors');    
 var port = 3002;
@@ -10,6 +13,7 @@ app.use(express.static(__dirname + '/../client/dist', {maxAge: 5000})); //sets m
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(morgan('dev'));
 
 app.get('/gallery/:id', (req, res) => {
   var id = Number(req.params.id);
